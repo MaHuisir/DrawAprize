@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>摇奖</title>
+    <style>
+        body {
+            margin: 0;
+        }
+        .app {
+            background: url('https://pic.90sheji.com/design/00/00/10/50/5fb11320aad15.jpg%21/fwfh/2280x0/clip/0x1514a0a0/quality/90/unsharp/true/compress/true/watermark/url/LzkwX3dhdGVyX3Y2LnBuZw==/repeat/true') no-repeat;
+            background-size: cover;
+            background-position: center center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        .content {
+
+            display: flex;
+        }
+
+        .name {
+            font-size: 12rem;
+            margin: 0 auto;
+            margin-top: 12%;
+            color: rgb(252, 211, 31)
+        }
+
+
+        .start {
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn {
+            margin: 0 auto;
+            height: 12rem;
+            width: 12rem;
+            border-radius: 50%;
+            background-color: #e0533a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            color: white;
+            user-select: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app">
+        <div class="content">
+            <div class="name">
+                周和平
+            </div>
+        </div>
+        <div class="start">
+            <div class="btn">
+                开 始
+            </div>
+        </div>
+    </div>
+    <script>
+        const str = "林悦玲, 江晨浩, 叶芷昕, 宋书瑶, 齐洛羽, 周子涵, 陈沐清, 徐若曦, 赵瑾瑜, 冯思甜, 张雅婷, 李明杰, 吴悠然, 郭瀚墨, 孙婉婷, 曹俊豪, 许灵犀, 黄锦程, 谢诗韵, 沈星河";
+        const list = str.split(' ');
+        const nameEle = document.querySelector('.name');
+        let startOrEnd = true;
+
+        let time = 0;
+        let indexs = 0;
+        const scrollHandle = () => {
+            // 开启这段代码，修改if则可确定在第几次点击必中某个人
+            /* if(time === (0b11 + 0b101)){
+                indexs++;
+                return nameEle.innerHTML = list[list.length - 6];
+            }; */
+            if (startOrEnd) return;
+            if (indexs < list.length) {
+                nameEle.innerHTML = list[indexs];
+                setTimeout(() => {
+                    indexs++;
+                    scrollHandle();
+                }, 100)
+            } else {
+                indexs = 0;
+                nameEle.innerHTML = list[0];
+                setTimeout(() => {
+                    scrollHandle();
+                })
+            }
+        };
+        scrollHandle(1);
+        const btn = document.querySelector('.start')
+        btn.addEventListener('click', (e) => {
+            time++;
+            startOrEnd = !startOrEnd;
+            document.querySelector('.btn').innerText = !startOrEnd ? '结束' : '开始';
+            if (!startOrEnd) scrollHandle();;
+        })
+    </script>
+</body>
+
+</html>
